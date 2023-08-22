@@ -140,54 +140,54 @@ do
         scriptinfo
         ;;
     u)
-		jUsername="${OPTARG}"
-		;;
-	p)
-		jPassword="${OPTARG}"
-		;;
-	j)
+	jUsername="${OPTARG}"
+	;;
+    p)
+	jPassword="${OPTARG}"
+	;;
+    j)
         jUrl="${OPTARG}"
         ;;
-	o)
-		outputCSV="${OPTARG}"
-		;;
-	i)
-		pathToFile="${OPTARG}"
+    o)
+	outputCSV="${OPTARG}"
+	;;
+    i)
+	pathToFile="${OPTARG}"
 
-		if [[ -f "$pathToFile" ]]
-			then
-				oldIFS=$IFS
-				IFS=$' \t\n'
+  	if [[ -f "$pathToFile" ]]
+		then
+			oldIFS=$IFS
+			IFS=$' \t\n'
 
-				while IFS= read -r serial
-				do
-					# Append the cleaned line to the serialArray
-					serialArray+=("$serial")
-				done < "$pathToFile"
+			while IFS= read -r serial
+			do
+				# Append the cleaned line to the serialArray
+				serialArray+=("$serial")
+			done < "$pathToFile"
 
-				IFS=$oldIFS
+			IFS=$oldIFS
 
-				serials="notBlank"
-		fi
-		inputFlag=true
-		;;
-	s)
-		serials="${OPTARG}"
+			serials="notBlank"
+	fi
+	inputFlag=true
+	;;
+    s)
+	serials="${OPTARG}"
 
-		# trimming any spaces given in the serial numbers
-		serialList=$(echo "$serials" | sed 's/ //g')
+  	# trimming any spaces given in the serial numbers
+	serialList=$(echo "$serials" | sed 's/ //g')
 
-		# importing serial list into an array for later
-		oldIFS=$IFS
-		IFS=','
-		read -r -a serialArray <<< "$serialList"
-		IFS=$oldIFS
+	# importing serial list into an array for later
+	oldIFS=$IFS
+	IFS=','
+	read -r -a serialArray <<< "$serialList"
+	IFS=$oldIFS
 
-		serialsFlag=true
-		;;
-	t)
-		test="y"
-		;;
+	serialsFlag=true
+	;;
+    t)
+	test="y"
+	;;
     ?)
         echo "Invalid option: -${OPTARG}."
         usage
